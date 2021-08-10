@@ -2,13 +2,12 @@
 // Then npm packages
 // Then our own files
 
-const chalk = require('chalk');
-const { argv } = require('yargs');
-const yargs = require('yargs');
-const getNotes = require('./notes.js');
+const chalk = require('chalk')
+const yargs = require('yargs')
+const notes = require('./notes.js')
 
 //Customize yargs version
-yargs.version('1.1.0');
+yargs.version('1.1.0')
 
 //create a command
 yargs.command({
@@ -27,37 +26,36 @@ yargs.command({
         }
     },
     handler: function(argv) {
-        console.log('Title: ' + argv.title);
-        console.log('Body: ' + argv.body);
+        notes.addNote(argv.title, argv.body)
     }
-});
+})
 
 //Create remove command
 yargs.command({
     command: 'remove',
     describe: 'Remove a note',
     handler: function() {
-        console.log('Removing the note');
+        console.log('Removing the note')
     }
-});
+})
 
 //Create list command
 yargs.command({
     command: 'list',
     describe: 'List all notes',
     handler: function() {
-        console.log('Listing all notes');
+        console.log('Listing all notes')
     }
-});
+})
 
 //Create read command
 yargs.command({
     command: 'read',
     describe: 'Read a note',
     handler: function() {
-        console.log('Reading a note');
+        console.log('Reading a note')
     }
-});
+})
 
-yargs.parse();
-//console.log(yargs.argv);
+yargs.parse()
+    //console.log(yargs.argv)
