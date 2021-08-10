@@ -11,4 +11,3 @@ user.age = 29;
 
 const userJSON = JSON.stringify(user);
 fs.writeFileSync('1-json.json', userJSON);
-//asd
