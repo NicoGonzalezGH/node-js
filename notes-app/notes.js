@@ -1,18 +1,6 @@
 const fs = require('fs')
 const chalk = require('chalk')
 
-const getNotes = () => {
-    return 'Your notes...'
-}
-
-const listNotes = () =>{
-    const notes = loadNotes();
-    console.log(chalk.blue('Your notes...'))
-    notes.forEach(note => {
-        console.log(chalk.green(note.title))
-    });
-}
-
 const removeNote = (title) => {
     const notes = loadNotes()
     const notesToKeep = notes.filter((note)=> note.title!==title)
@@ -26,8 +14,12 @@ const removeNote = (title) => {
 
 const addNote = (title, body) => {
     const notes = loadNotes()
-    const duplicateNotes = notes.filter((note) => note.title === title)
-    if(duplicateNotes.length==0){
+    //const duplicateNotes = notes.filter((note) => note.title === title) ** this line searches for all duplicates in a whole array.
+    const duplicateNote = notes.find((note)=>note.title===title) // ** this line searches for the first coincidence and returns true or false.
+    
+    debugger //To debug node apps, type 'node inspect app.js' with the needed args, then open a chrome tab and visit chrome://inspect.
+
+    if(!duplicateNote){
         notes.push({
             title: title,
             body: body
@@ -52,13 +44,35 @@ const loadNotes = () => {
     } catch (e) {
         return []
     }
+}
 
+const readNote = (title) => {
+    const notes = loadNotes()
+    const note = notes.find((note)=>note.title===title)
+    if (note){
+        console.log(chalk.green.inverse(note.title))
+        console.log(note.body)
+    } else {
+        console.log(chalk.red.inverse('No note with such title found.'))
+    }
 
 }
 
+const listNotes = () =>{
+    const notes = loadNotes();
+    console.log(chalk.blue('Your notes...'))
+    notes.forEach(note => {
+        console.log(chalk.green(note.title))
+    });
+}
+
 module.exports = {
-    getNotes: getNotes,
+    readNote: readNote,
     addNote: addNote,
     removeNote: removeNote,
     listNotes: listNotes
 }
+
+
+
+
